@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Music2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import hoorishPortrait from "@/assets/hoorish-fatima.jpeg.asset.json";
 import birthdayMusic from "@/assets/hoorish-birthday-theme.mp3.asset.json";
 import { Button } from "@/components/ui/button";
 
@@ -275,7 +274,7 @@ function Index() {
           <Reveal className="portrait-stage" delay={80}>
             <span className="portrait-folio" />
             <div className="portrait-frame">
-              <img src={hoorishPortrait.url} alt="Hoorish Fatima smiling and holding a golden balloon" width="1200" height="1600" />
+              <img src="/hoorish-fatima.jpeg" alt="Hoorish Fatima smiling and holding a golden balloon" width="1200" height="1600" />
             </div>
             <div className="portrait-bloom portrait-bloom-left"><Flourish /></div>
             <div className="portrait-bloom portrait-bloom-right"><Flourish mirrored /></div>
