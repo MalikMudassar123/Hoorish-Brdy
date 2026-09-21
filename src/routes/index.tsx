@@ -51,6 +51,9 @@ function Bird({ className = "" }: { className?: string }) {
   );
 }
 
+// The wax seal cracks and the band peels away before the flap lifts.
+const SEAL_PEEL_MS = 900;
+
 const particles = Array.from({ length: 42 }, (_, index) => ({
   id: index,
   x: `${8 + ((index * 37) % 84)}%`,
@@ -115,10 +118,23 @@ function Index() {
   const [opened, setOpened] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [replaying, setReplaying] = useState(false);
+  const [breaking, setBreaking] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const musicEnabledRef = useRef(true);
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeRef = useRef<number | null>(null);
+  const timersRef = useRef<number[]>([]);
+
+  const after = useCallback((ms: number, run: () => void) => {
+    timersRef.current.push(window.setTimeout(run, ms));
+  }, []);
+
+  const clearTimers = useCallback(() => {
+    timersRef.current.forEach(window.clearTimeout);
+    timersRef.current = [];
+  }, []);
+
+  useEffect(() => clearTimers, [clearTimers]);
 
   const clearFade = useCallback(() => {
     if (fadeRef.current !== null) {
@@ -190,13 +206,26 @@ function Index() {
   }, [clearFade, fadeInMusic]);
 
   const openInvitation = () => {
-    if (opened) return;
-    setCelebrating(true);
-    setOpened(true);
+    if (opened || breaking) return;
     if (musicEnabledRef.current && audioRef.current?.paused) void fadeInMusic();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(() => document.getElementById("invitation")?.scrollIntoView({ block: "start" }), reduceMotion ? 120 : 2400);
-    window.setTimeout(() => setCelebrating(false), reduceMotion ? 300 : 6100);
+    const scrollToInvitation = () => document.getElementById("invitation")?.scrollIntoView({ block: "start" });
+
+    if (reduceMotion) {
+      setOpened(true);
+      setCelebrating(true);
+      after(120, scrollToInvitation);
+      after(300, () => setCelebrating(false));
+      return;
+    }
+
+    setBreaking(true);
+    after(SEAL_PEEL_MS, () => {
+      setCelebrating(true);
+      setOpened(true);
+    });
+    after(SEAL_PEEL_MS + 2400, scrollToInvitation);
+    after(SEAL_PEEL_MS + 6100, () => setCelebrating(false));
   };
 
   const toggleMusic = () => {
@@ -213,18 +242,20 @@ function Index() {
 
   const replayInvitation = () => {
     if (replaying) return;
+    clearTimers();
     setCelebrating(false);
     setReplaying(true);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(() => {
+    after(reduceMotion ? 20 : 600, () => {
       window.scrollTo({ top: 0, behavior: "auto" });
       setOpened(false);
-    }, reduceMotion ? 20 : 600);
-    window.setTimeout(() => setReplaying(false), reduceMotion ? 120 : 1350);
+      setBreaking(false);
+    });
+    after(reduceMotion ? 120 : 1350, () => setReplaying(false));
   };
 
   return (
-    <main className={`${opened ? "invitation-open" : "invitation-closed"} ${replaying ? "invitation-replaying" : ""}`}>
+    <main className={`${opened ? "invitation-open" : "invitation-closed"} ${replaying ? "invitation-replaying" : ""} ${breaking ? "seal-breaking" : ""}`}>
       <div className="replay-veil" aria-hidden="true"><span>H</span></div>
       <section className="opening" aria-label="Invitation cover">
         <div className="opening-ambient opening-ambient-left"><Flourish /></div>
@@ -241,6 +272,7 @@ function Index() {
           <div className="envelope-flap">
             <div className="flap-ornament"><Flourish /><span>H</span><Flourish mirrored /></div>
           </div>
+          <div className="opening-card-clip">
           <article className="opening-card" aria-hidden={!opened}>
             <div className="opening-card-border">
               <span className="card-corner card-corner-tl" />
@@ -255,17 +287,41 @@ function Index() {
               <p className="card-note">A beautiful day is waiting to be celebrated.</p>
             </div>
           </article>
+          </div>
           <div className="envelope-pocket">
             <span className="pocket-edge" />
             <div className="pocket-botanical pocket-botanical-left"><Flourish /></div>
             <div className="pocket-botanical pocket-botanical-right"><Flourish mirrored /></div>
             <span className="pocket-medallion">HF</span>
           </div>
+          <div className="seal-stage" aria-hidden="true">
+            <span className="wax-band wax-band-left"><i className="band-sheen" /></span>
+            <span className="wax-band wax-band-right"><i className="band-sheen" /></span>
+            <span className="seal-charge" />
+            <span className="seal-shock seal-shock-near" />
+            <span className="seal-shock seal-shock-far" />
+          </div>
           <div className="seal-wrap">
-            <Button variant="seal" size="seal" onClick={openInvitation} aria-label="Open invitation" disabled={opened}>
-              <span>H</span>
+            <Button
+              className="wax-seal"
+              variant="seal"
+              size="seal"
+              onClick={openInvitation}
+              aria-label="Open invitation"
+              disabled={opened || breaking}
+            >
+              <span className="wax-body" aria-hidden="true" />
+              <span className="wax-ring" aria-hidden="true" />
+              <span className="wax-monogram">H</span>
             </Button>
-            <span className="open-label" aria-hidden="true">Open invitation</span>
+            <button
+              type="button"
+              className="open-label"
+              onClick={openInvitation}
+              disabled={opened || breaking}
+            >
+              Open invitation
+            </button>
           </div>
         </div>
       </section>

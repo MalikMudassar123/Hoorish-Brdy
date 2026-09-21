@@ -208,7 +208,8 @@ html { scroll-behavior: smooth; }
 .flap-ornament { position: absolute; left: 50%; top: 17%; display: flex; width: 48%; align-items: center; justify-content: center; color: var(--primary); opacity: .24; transform: translateX(-50%); }
 .flap-ornament .flourish { width: 42%; }.flap-ornament .flourish:first-child { transform: rotate(20deg); }.flap-ornament .flourish:last-child { transform: rotate(-20deg); }
 .flap-ornament span { display: grid; width: 2rem; height: 2rem; flex: 0 0 2rem; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-family: var(--font-display); font-size: .72rem; }
-.opening-card { position: absolute; z-index: 3; inset: 6% 6% 8%; display: flex; padding: .55rem; border: 1px solid color-mix(in oklab, var(--champagne) 72%, transparent); background-color: var(--card); background-image: repeating-linear-gradient(90deg, color-mix(in oklab, var(--foreground) 1.7%, transparent) 0 1px, transparent 1px 7px); box-shadow: 0 12px 32px color-mix(in oklab, var(--foreground) 14%, transparent); transform: translateY(18%) scale(.96); transition: transform 1.35s cubic-bezier(.16,.82,.2,1) 1.02s, z-index 0s 1.08s, box-shadow 1.1s ease 1s; }
+.opening-card-clip { position: absolute; z-index: 3; inset: 0; clip-path: polygon(-200% -600%, 300% -600%, 300% 100%, -200% 100%); pointer-events: none; }
+.opening-card { position: absolute; inset: 6% 6% 8%; display: flex; padding: .55rem; border: 1px solid color-mix(in oklab, var(--champagne) 72%, transparent); background-color: var(--card); background-image: repeating-linear-gradient(90deg, color-mix(in oklab, var(--foreground) 1.7%, transparent) 0 1px, transparent 1px 7px); box-shadow: 0 1px 4px color-mix(in oklab, var(--foreground) 8%, transparent); transform: translateY(78%) scale(.96); transition: transform 1.5s cubic-bezier(.16,.82,.2,1) 1.02s, box-shadow 1.1s ease 1s; }
 .opening-card-border { position: relative; display: flex; width: 100%; flex-direction: column; align-items: center; justify-content: center; border: 1px solid color-mix(in oklab, var(--champagne) 55%, transparent); padding: 1.3rem; text-align: center; }
 .card-corner { position: absolute; width: 1.6rem; height: 1.6rem; }
 .card-corner-tl { left: .45rem; top: .45rem; border-left: 1px solid var(--champagne); border-top: 1px solid var(--champagne); }
@@ -227,19 +228,60 @@ html { scroll-behavior: smooth; }
 .pocket-botanical { position: absolute; bottom: -6%; width: 34%; color: var(--primary); opacity: .16; }
 .pocket-botanical-left { left: -4%; transform: rotate(-12deg); }.pocket-botanical-right { right: -4%; transform: rotate(12deg); }
 .pocket-medallion { position: absolute; left: 50%; bottom: 11%; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid color-mix(in oklab, var(--champagne) 70%, transparent); border-radius: 50%; color: color-mix(in oklab, var(--primary) 55%, transparent); font-family: var(--font-display); font-size: .62rem; transform: translateX(-50%); }
-.seal-wrap { position: absolute; z-index: 8; left: 50%; top: 46%; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -50%); transition: opacity .45s ease, transform .55s ease; }
-.seal-wrap button { background: var(--primary); color: var(--primary-foreground); border: 1px solid color-mix(in oklab, var(--champagne) 70%, transparent); box-shadow: 0 10px 22px color-mix(in oklab, var(--foreground) 18%, transparent), inset 0 0 0 .4rem color-mix(in oklab, var(--primary-foreground) 10%, transparent); }
-.seal-wrap button:hover { background: color-mix(in oklab, var(--primary) 90%, var(--card)); transform: scale(1.04); }
-.seal-wrap button span { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid color-mix(in oklab, var(--primary-foreground) 32%, transparent); border-radius: 50%; font-family: var(--font-display); }
-.open-label { position: relative; margin-top: .72rem; padding: .52rem 1rem .48rem; border: 1px solid color-mix(in oklab, var(--champagne) 76%, var(--primary)); background: color-mix(in oklab, var(--ivory) 88%, transparent); color: var(--primary); box-shadow: 0 7px 18px color-mix(in oklab, var(--foreground) 12%, transparent), inset 0 0 0 2px color-mix(in oklab, var(--card) 70%, transparent); font-size: .76rem; font-weight: 700; line-height: 1; letter-spacing: .14em; text-shadow: 0 1px var(--primary-foreground); text-transform: uppercase; white-space: nowrap; }
+/* Horizontal wax band + a seal that peels off the envelope */
+.seal-stage { position: absolute; z-index: 7; inset: 0; transform-style: preserve-3d; pointer-events: none; }
+.wax-band { position: absolute; top: 46%; height: 2.7rem; width: 50.4%; overflow: hidden; background-color: var(--ivory); background-image: linear-gradient(180deg, color-mix(in oklab, var(--card) 97%, transparent), color-mix(in oklab, var(--ivory) 90%, var(--champagne)) 38%, color-mix(in oklab, var(--champagne) 18%, var(--ivory)) 74%, color-mix(in oklab, var(--champagne) 34%, var(--ivory))); border-block: 1px solid color-mix(in oklab, var(--champagne) 80%, transparent); box-shadow: 0 10px 22px color-mix(in oklab, var(--foreground) 18%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 9%, transparent), inset 0 1px color-mix(in oklab, var(--card) 92%, transparent); transform: translateY(-50%); }
+.wax-band::before { content: ""; position: absolute; inset: .44rem .1rem; border-block: 1px solid color-mix(in oklab, var(--champagne) 52%, transparent); }
+.wax-band::after { content: ""; position: absolute; inset: 0; opacity: 0; }
+.wax-band-left { left: 0; transform-origin: right center; }
+.wax-band-right { right: 0; transform-origin: left center; }
+.wax-band-left::after { background: linear-gradient(270deg, color-mix(in oklab, var(--card) 96%, transparent), color-mix(in oklab, var(--champagne) 34%, transparent) 42%, transparent 78%); }
+.wax-band-right::after { background: linear-gradient(90deg, color-mix(in oklab, var(--card) 96%, transparent), color-mix(in oklab, var(--champagne) 34%, transparent) 42%, transparent 78%); }
+.band-sheen { position: absolute; top: 0; bottom: 0; width: 34%; opacity: 0; background: linear-gradient(100deg, transparent, color-mix(in oklab, var(--card) 96%, transparent) 42%, color-mix(in oklab, var(--champagne) 52%, transparent) 62%, transparent); animation: band-sheen 5.4s cubic-bezier(.45,.05,.4,1) infinite; }
+.wax-band-left .band-sheen { left: -36%; --sheen-travel: 330%; }
+.wax-band-right .band-sheen { right: -36%; --sheen-travel: -330%; }
+
+.seal-charge { position: absolute; left: 0; right: 0; top: 46%; height: 2px; opacity: 0; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--champagne) 92%, transparent) 28%, var(--ivory) 50%, color-mix(in oklab, var(--champagne) 92%, transparent) 72%, transparent); transform: translateY(-50%) scaleX(.04); }
+.seal-shock { position: absolute; left: 50%; top: 46%; width: 4.6rem; height: 4.6rem; opacity: 0; border: 1px solid color-mix(in oklab, var(--champagne) 88%, transparent); border-radius: 50%; transform: translate(-50%, -50%) scale(.42); }
+.seal-shock-far { border-color: color-mix(in oklab, var(--primary) 42%, transparent); }
+
+.seal-wrap { position: absolute; z-index: 8; left: 50%; top: 46%; display: flex; flex-direction: column; align-items: center; transform-style: preserve-3d; transform: translate(-50%, -50%); transition: opacity .45s ease, transform .55s ease; }
+.wax-seal { position: relative; border: 0; background: none; box-shadow: none; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.wax-seal:disabled { opacity: 1; }
+.wax-seal:not(:disabled):hover { background: none; transform: translateY(-.18rem) scale(1.05); }
+.wax-seal:not(:disabled):hover .wax-ring { opacity: 1; animation-duration: 3.4s; }
+.wax-body { position: absolute; inset: 0; border-radius: 47% 53% 51% 49% / 52% 48% 52% 48%; background-color: var(--rose-deep); background-image: radial-gradient(circle at 33% 26%, color-mix(in oklab, var(--primary-foreground) 30%, transparent), transparent 48%), radial-gradient(circle at 72% 80%, color-mix(in oklab, var(--foreground) 40%, transparent), transparent 54%); box-shadow: 0 14px 26px color-mix(in oklab, var(--foreground) 28%, transparent), inset 0 2px 4px color-mix(in oklab, var(--primary-foreground) 28%, transparent), inset 0 -5px 10px color-mix(in oklab, var(--foreground) 32%, transparent), inset 0 0 0 .34rem color-mix(in oklab, var(--primary-foreground) 10%, transparent); animation: wax-settle 14s ease-in-out infinite; }
+.wax-ring { position: absolute; inset: -.72rem; border-radius: 50%; opacity: .62; background: conic-gradient(from 0deg, transparent 0 8%, color-mix(in oklab, var(--champagne) 92%, transparent) 20%, transparent 32% 58%, color-mix(in oklab, var(--champagne) 70%, transparent) 70%, transparent 82%); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px)); transition: opacity .4s ease; animation: ring-orbit 9s linear infinite; }
+.wax-monogram { position: relative; display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid color-mix(in oklab, var(--primary-foreground) 34%, transparent); border-radius: 50%; color: var(--primary-foreground); font-family: var(--font-display); text-shadow: 0 1px 1px color-mix(in oklab, var(--foreground) 50%, transparent); }
+
+.open-label { position: relative; margin-top: .72rem; padding: .52rem 1rem .48rem; border: 1px solid color-mix(in oklab, var(--champagne) 76%, var(--primary)); background: color-mix(in oklab, var(--ivory) 88%, transparent); color: var(--primary); box-shadow: 0 7px 18px color-mix(in oklab, var(--foreground) 12%, transparent), inset 0 0 0 2px color-mix(in oklab, var(--card) 70%, transparent); cursor: pointer; font-family: inherit; font-size: .76rem; font-weight: 700; line-height: 1; letter-spacing: .14em; text-shadow: 0 1px var(--primary-foreground); text-transform: uppercase; white-space: nowrap; transition: background .3s ease, box-shadow .3s ease, transform .3s ease; }
+.open-label:not(:disabled):hover { background: var(--ivory); box-shadow: 0 10px 24px color-mix(in oklab, var(--foreground) 16%, transparent), inset 0 0 0 2px color-mix(in oklab, var(--card) 70%, transparent); transform: translateY(-1px); }
+.open-label:focus-visible { outline: 2px solid color-mix(in oklab, var(--primary) 70%, transparent); outline-offset: 3px; }
 .open-label::before, .open-label::after { content: ""; position: absolute; top: 50%; width: .65rem; height: 1px; background: var(--champagne); }
 .open-label::before { left: -.85rem; }.open-label::after { right: -.85rem; }
+
+/* The break: a charge races along the band, then both halves peel away */
+.seal-breaking .seal-charge { animation: seal-charge 560ms cubic-bezier(.2,.75,.25,1) forwards; }
+.seal-breaking .seal-shock { animation: seal-shock 1s cubic-bezier(.16,.84,.3,1) forwards; }
+.seal-breaking .seal-shock-far { animation: seal-shock 1s cubic-bezier(.16,.84,.3,1) 150ms forwards; }
+.seal-breaking .band-sheen { opacity: 0; animation: none; }
+.seal-breaking .wax-band-left { animation: band-peel-left 980ms cubic-bezier(.36,.02,.22,1) 120ms forwards; }
+.seal-breaking .wax-band-right { animation: band-peel-right 980ms cubic-bezier(.36,.02,.22,1) 200ms forwards; }
+.seal-breaking .wax-band-left::after { animation: band-curl 980ms ease-out 120ms forwards; }
+.seal-breaking .wax-band-right::after { animation: band-curl 980ms ease-out 200ms forwards; }
+.seal-breaking .wax-seal { animation: seal-peel 940ms cubic-bezier(.34,.06,.2,1) forwards; }
+.seal-breaking .wax-ring { opacity: 1; animation: ring-orbit 1.1s linear infinite; }
+.seal-breaking .open-label { animation: label-dismiss 360ms ease forwards; }
+.seal-breaking .envelope-back { animation: envelope-unlock 1s ease-out; }
+.seal-breaking .stationery-stage { animation: stage-jolt 640ms cubic-bezier(.3,.7,.3,1); }
+
 .invitation-open .opening { visibility: hidden; opacity: 0; }
 .invitation-closed .opening { visibility: visible; opacity: 1; transition: visibility 0s, opacity .65s ease; }
-.invitation-open .envelope-flap { z-index: 1; transform: rotateX(178deg); }
+.invitation-open .envelope-flap { z-index: 1; transform: rotateX(182deg); }
 .invitation-open .stationery-stage { transform: translateY(3vh) scale(1.015); }
-.invitation-open .opening-card { z-index: 7; box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 19%, transparent); transform: translateY(-43%) scale(1); }
+.invitation-open .opening-card { box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 19%, transparent); transform: translateY(-43%) scale(1); }
 .invitation-open .seal-wrap { opacity: 0; transform: translate(-50%, -70%) scale(.82); pointer-events: none; }
+.invitation-open .seal-stage { visibility: hidden; }
 
 .celebration-burst { position: fixed; z-index: 55; inset: 0; pointer-events: none; overflow: hidden; }
 .particle { --particle-x: 50%; --particle-delay: 0s; --particle-duration: 4s; --particle-drift: 0px; --particle-rotation: 180deg; position: absolute; left: var(--particle-x); top: 7%; width: .42rem; height: .9rem; background: var(--rose-deep); opacity: 0; animation: confetti-fall var(--particle-duration) cubic-bezier(.13,.65,.28,1) var(--particle-delay) forwards; will-change: transform, opacity; }
@@ -339,6 +381,34 @@ html { scroll-behavior: smooth; }
 @keyframes confetti-fall { 0% { opacity: 0; transform: translate3d(0,8vh,0) rotate(0) scale(.6); } 9% { opacity: .92; } 28% { transform: translate3d(var(--particle-drift),-7vh,0) rotate(120deg) scale(1); } 72% { opacity: .85; } 100% { opacity: 0; transform: translate3d(var(--particle-drift),92vh,0) rotate(var(--particle-rotation)) scale(.85); } }
 @keyframes bird-flight { 0% { opacity: 0; transform: translate3d(0,2rem,0) scale(.72); } 16% { opacity: .68; } 68% { opacity: .58; } 100% { opacity: 0; transform: translate3d(var(--bird-x),-12rem,0) scale(1.08); } }
 @keyframes petal-drift { 0%,100% { transform: translate3d(0,-.5rem,0) rotate(-10deg); } 50% { transform: translate3d(1rem,1rem,0) rotate(30deg); } }
+@keyframes band-sheen { 0%, 40% { opacity: 0; transform: translateX(0); } 48% { opacity: .9; } 88%, 100% { opacity: 0; transform: translateX(var(--sheen-travel)); } }
+@keyframes band-peel-left {
+  0% { transform: translateY(-50%) translateX(0) translateZ(0) rotateY(0deg); box-shadow: 0 10px 22px color-mix(in oklab, var(--foreground) 18%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 9%, transparent); }
+  16% { transform: translateY(-50%) translateX(.45rem) translateZ(.9rem) rotateY(7deg) rotateZ(.5deg); box-shadow: 0 20px 28px color-mix(in oklab, var(--foreground) 24%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 6%, transparent); }
+  46% { transform: translateY(-50%) translateX(-3.2rem) translateZ(2.4rem) rotateY(22deg) rotateZ(-1.6deg); box-shadow: 0 30px 36px color-mix(in oklab, var(--foreground) 24%, transparent), 0 2px 4px transparent; }
+  100% { opacity: 0; transform: translateY(-50%) translateX(-16rem) translateZ(3.4rem) rotateY(38deg) rotateZ(-4.5deg); box-shadow: 0 36px 42px transparent, 0 2px 4px transparent; }
+}
+@keyframes band-peel-right {
+  0% { transform: translateY(-50%) translateX(0) translateZ(0) rotateY(0deg); box-shadow: 0 10px 22px color-mix(in oklab, var(--foreground) 18%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 9%, transparent); }
+  16% { transform: translateY(-50%) translateX(-.45rem) translateZ(.9rem) rotateY(-7deg) rotateZ(-.5deg); box-shadow: 0 20px 28px color-mix(in oklab, var(--foreground) 24%, transparent), 0 2px 4px color-mix(in oklab, var(--foreground) 6%, transparent); }
+  46% { transform: translateY(-50%) translateX(3.2rem) translateZ(2.4rem) rotateY(-22deg) rotateZ(1.6deg); box-shadow: 0 30px 36px color-mix(in oklab, var(--foreground) 24%, transparent), 0 2px 4px transparent; }
+  100% { opacity: 0; transform: translateY(-50%) translateX(16rem) translateZ(3.4rem) rotateY(-38deg) rotateZ(4.5deg); box-shadow: 0 36px 42px transparent, 0 2px 4px transparent; }
+}
+@keyframes band-curl { 0% { opacity: 0; } 40% { opacity: .9; } 100% { opacity: .55; } }
+@keyframes seal-peel {
+  0% { transform: translate3d(0,0,0) rotateZ(0deg) scale(1); }
+  12% { transform: translate3d(0,.12rem,0) rotateZ(-3deg) scale(.93); }
+  32% { transform: translate3d(0,-.7rem,3rem) rotateX(9deg) rotateZ(4deg) scale(1.12); }
+  62% { opacity: 1; transform: translate3d(.7rem,-2.6rem,4.6rem) rotateX(17deg) rotateZ(13deg) scale(1.02); }
+  100% { opacity: 0; transform: translate3d(1.9rem,-7.4rem,6rem) rotateX(26deg) rotateZ(28deg) scale(.76); }
+}
+@keyframes seal-charge { 0% { opacity: 0; transform: translateY(-50%) scaleX(.04); } 22% { opacity: 1; } 100% { opacity: 0; transform: translateY(-50%) scaleX(1); } }
+@keyframes seal-shock { 0% { opacity: .8; transform: translate(-50%,-50%) scale(.52); } 55% { opacity: .16; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.1); } }
+@keyframes ring-orbit { to { transform: rotate(360deg); } }
+@keyframes wax-settle { 0%, 100% { border-radius: 47% 53% 51% 49% / 52% 48% 52% 48%; } 50% { border-radius: 52% 48% 47% 53% / 48% 53% 47% 52%; } }
+@keyframes label-dismiss { to { opacity: 0; transform: translateY(.55rem) scale(.93); } }
+@keyframes envelope-unlock { 0%, 100% { box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 17%, transparent), inset 0 0 0 .45rem color-mix(in oklab, var(--card) 22%, transparent); } 35% { box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 17%, transparent), inset 0 0 0 .45rem color-mix(in oklab, var(--card) 22%, transparent), 0 0 2.8rem color-mix(in oklab, var(--champagne) 62%, transparent); } }
+@keyframes stage-jolt { 0%, 100% { transform: none; } 14% { transform: translateY(.18rem) scale(.995); } 42% { transform: translateY(-.12rem) scale(1.004); } }
 @keyframes music-pulse { 0%,100% { opacity: .38; transform: scale(.96); } 50% { opacity: .8; transform: scale(1.08); } }
 
 @media (min-width: 768px) {
@@ -359,7 +429,9 @@ html { scroll-behavior: smooth; }
 @media (max-width: 390px) {
   .opening { padding-inline: .65rem; }
   .stationery-stage { width: 96vw; }
-  .seal-wrap button { width: 4.25rem; height: 4.25rem; }
+  .wax-seal { width: 4.25rem; height: 4.25rem; }
+  .wax-monogram { width: 2.55rem; height: 2.55rem; }
+  .wax-band { height: 1.95rem; }
   .open-label { margin-top: .62rem; padding: .48rem .85rem .44rem; font-size: .72rem; letter-spacing: .12em; }
   .opening-card h1 { font-size: clamp(1.9rem, 10vw, 2.45rem); }
   .opening-card-border { padding: 1rem; }
@@ -381,5 +453,6 @@ html { scroll-behavior: smooth; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
   .replay-veil { transition: none; }
+  .band-sheen, .wax-body, .wax-ring { animation: none; }
   .invitation-open .opening-card { transform: translateY(-36%) scale(1); }
 }
