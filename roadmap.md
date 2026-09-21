@@ -1,0 +1,22 @@
+# Roadmap
+
+- [x] Inspect the Bellagio visual and storytelling reference
+- [x] Research additional luxury digital stationery references
+- [x] Select the classical stationery suite direction
+- [x] Rebuild the opening as a physical envelope and invitation card
+- [x] Add restrained confetti, birds, petals, and botanical storytelling
+- [x] Recompose the portrait, date, family, and closing chapters
+- [x] Verify mobile and desktop presentation, interactions, and errors
+- [x] Correct all names and birthday-focused wording
+- [x] Refine the physical envelope and extend the celebration sequence
+- [x] Recompose the portrait section with strict mobile and desktop safe zones
+- [x] Complete final mobile/desktop visual and technical review
+- [x] Strengthen the Open Invitation action across screen sizes
+- [x] Rebalance small labels, dates, and supporting typography site-wide
+- [x] Add subtle original background music with fade controls and autoplay fallback
+- [x] Complete mobile, tablet, desktop, interaction, audio, and error checks
+- [x] Increase the background music while keeping it gentle
+- [x] Replace another-year wording with first-birthday copy
+- [x] Make the final H replay the envelope opening
+- [x] Verify replay, audio, wording, and mobile behavior
+- [x] Smooth the final H return without overlapping the page and envelope
