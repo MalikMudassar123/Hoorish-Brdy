@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Music2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import birthdayMusic from "@/assets/hoorish-birthday-theme.mp3.asset.json";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -116,8 +115,8 @@ function Index() {
   const [opened, setOpened] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [replaying, setReplaying] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
+  const musicEnabledRef = useRef(true);
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeRef = useRef<number | null>(null);
 
@@ -170,16 +169,31 @@ function Index() {
     return () => document.body.classList.remove("invitation-is-closed");
   }, [opened]);
 
+  // Try to autoplay on visit. Browsers usually block this until the visitor interacts,
+  // so if it's blocked, start the music on the first tap, click or key press instead.
   useEffect(() => {
-    void fadeInMusic();
-    return clearFade;
+    let cancelled = false;
+    const events = ["pointerdown", "touchend", "keydown"] as const;
+    const detach = () => events.forEach((name) => window.removeEventListener(name, onFirstGesture));
+    function onFirstGesture() {
+      detach();
+      if (musicEnabledRef.current) void fadeInMusic();
+    }
+    void fadeInMusic().then((started) => {
+      if (!started && !cancelled) events.forEach((name) => window.addEventListener(name, onFirstGesture));
+    });
+    return () => {
+      cancelled = true;
+      detach();
+      clearFade();
+    };
   }, [clearFade, fadeInMusic]);
 
   const openInvitation = () => {
     if (opened) return;
     setCelebrating(true);
     setOpened(true);
-    if (!musicPlaying && musicEnabled) void fadeInMusic();
+    if (musicEnabledRef.current && audioRef.current?.paused) void fadeInMusic();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.setTimeout(() => document.getElementById("invitation")?.scrollIntoView({ block: "start" }), reduceMotion ? 120 : 2400);
     window.setTimeout(() => setCelebrating(false), reduceMotion ? 300 : 6100);
@@ -187,11 +201,11 @@ function Index() {
 
   const toggleMusic = () => {
     if (musicPlaying) {
-      setMusicEnabled(false);
+      musicEnabledRef.current = false;
       fadeOutMusic();
       return;
     }
-    setMusicEnabled(true);
+    musicEnabledRef.current = true;
     const audio = audioRef.current;
     if (audio) audio.volume = 0;
     void fadeInMusic();
@@ -355,7 +369,7 @@ function Index() {
           </Reveal>
         </footer>
 
-        <audio ref={audioRef} src={birthdayMusic.url} loop preload="auto" aria-hidden="true" />
+        <audio ref={audioRef} src="/hoorish-birthday-theme.wav" loop preload="auto" aria-hidden="true" />
         <Button
           className={`music-button ${musicPlaying ? "is-playing" : ""}`}
           variant="seal"
