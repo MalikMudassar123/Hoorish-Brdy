@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Music2, VolumeX } from "lucide-react";
+import { MapPin, Music2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,152 @@ function Bird({ className = "" }: { className?: string }) {
     <svg aria-hidden="true" className={`bird ${className}`} viewBox="0 0 80 42" fill="none">
       <path d="M4 31c13-1 21-7 28-19 3 8 3 14 0 19 10-8 21-10 34-5-11 2-19 7-25 13-8-6-20-9-37-8Z" />
       <path d="M42 18c4-7 10-11 18-12M59 6l7 2" />
+    </svg>
+  );
+}
+
+function CueArrow() {
+  return (
+    <svg aria-hidden="true" className="cue-arrow" viewBox="0 0 70 84" fill="none">
+      <g className="cue-arrow-halo">
+        <path className="cue-arrow-line" d="M58 4C66 26 58 50 38 62C30 67 22 70 13 72" />
+        <path className="cue-arrow-head" d="M22 63L12 72L25 77" />
+      </g>
+      <g className="cue-arrow-ink">
+        <path className="cue-arrow-line" d="M58 4C66 26 58 50 38 62C30 67 22 70 13 72" />
+        <path className="cue-arrow-head" d="M22 63L12 72L25 77" />
+      </g>
+    </svg>
+  );
+}
+
+function ScrollBunny() {
+  return (
+    <svg aria-hidden="true" className="scroll-bunny" viewBox="0 0 132 150" fill="none">
+      <defs>
+        <radialGradient id="bny-fur" cx="42%" cy="34%" r="70%">
+          <stop offset="0" className="bny-fur-hi" />
+          <stop offset="1" className="bny-fur-lo" />
+        </radialGradient>
+        <radialGradient id="bny-blush" cx="50%" cy="50%" r="50%">
+          <stop offset="0" className="bny-blush-in" />
+          <stop offset="1" className="bny-blush-out" />
+        </radialGradient>
+        <linearGradient id="bny-tulle" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" className="bny-tulle-top" />
+          <stop offset="1" className="bny-tulle-bottom" />
+        </linearGradient>
+        <linearGradient id="bny-balloon" x1=".2" y1="0" x2=".8" y2="1">
+          <stop offset="0" className="bny-balloon-hi" />
+          <stop offset="1" className="bny-balloon-lo" />
+        </linearGradient>
+      </defs>
+
+      <ellipse className="bny-ground" cx="70" cy="143.5" rx="27" ry="3.6" />
+
+      <g className="bny-float">
+        <g className="bny-balloon">
+          <path className="bny-string" d="M30 55C27 66 39 73 37.5 88" />
+          <path
+            className="bny-balloon-body"
+            d="M30 52C20 44 12 37 12 28C12 21 17 16 23 16C27 16 29.5 18.5 30 21C30.5 18.5 33 16 37 16C43 16 48 21 48 28C48 37 40 44 30 52Z"
+          />
+          <path className="bny-balloon-shine" d="M17.5 27c0-4 2.6-6.4 6-6.6" />
+          <path className="bny-balloon-knot" d="M27.8 55.5L30 51.8l2.2 3.7z" />
+        </g>
+
+        <circle className="bny-line bny-fill" cx="90" cy="121" r="6.5" />
+        <path
+          className="bny-line bny-fill"
+          d="M70 86C56 86 48 98 48 112C48 126 57 136 70 136C83 136 92 126 92 112C92 98 84 86 70 86Z"
+        />
+        <path
+          className="bny-line bny-tutu"
+          d="M45 114Q70 104 95 114L99 126Q94 130 89 126Q84 132 78 127Q72 133 66 127Q60 132 54 127Q48 130 42 126Z"
+        />
+        <circle className="bny-glint" cx="58" cy="120" r=".9" />
+        <circle className="bny-glint" cx="71" cy="123" r="1" />
+        <circle className="bny-glint" cx="84" cy="119" r=".9" />
+
+        <ellipse className="bny-line bny-fill" cx="59" cy="137" rx="9" ry="5.4" />
+        <ellipse className="bny-line bny-fill" cx="81" cy="137" rx="9" ry="5.4" />
+        <ellipse className="bny-pad" cx="59" cy="137.6" rx="3.4" ry="2.1" />
+        <ellipse className="bny-pad" cx="81" cy="137.6" rx="3.4" ry="2.1" />
+
+        <rect
+          className="bny-line bny-fill"
+          x="47"
+          y="93"
+          width="10"
+          height="21"
+          rx="5"
+          transform="rotate(125 52 97)"
+        />
+        <g className="bny-point">
+          <rect
+            className="bny-line bny-fill"
+            x="83"
+            y="93"
+            width="10"
+            height="28"
+            rx="5"
+            transform="rotate(-35 88 97)"
+          />
+        </g>
+        <path className="bny-hint" d="M102 127.5l3 3 3-3" />
+
+        <g className="bny-ears">
+          <path
+            className="bny-line bny-fill"
+            d="M58 56C52 44 50 26 55 16C59 9 66 12 67 24C68 34 67 46 66 55Z"
+          />
+          <path
+            className="bny-inner"
+            d="M59.5 52C56 42 55 29 58 21C60 17 63 19 63.5 26C64 35 63.5 44 63 51Z"
+          />
+          <g className="bny-ear-flop">
+            <path
+              className="bny-line bny-fill"
+              d="M76 55C77 43 81 28 90 20C97 14 104 18 100 27C97 34 90 42 84 56Z"
+            />
+            <path
+              className="bny-inner"
+              d="M79 51C80 41 84 30 90 25C95 21 98 24 96 29C93 35 88 42 83.5 51Z"
+            />
+          </g>
+        </g>
+
+        <ellipse className="bny-line bny-fill" cx="70" cy="70" rx="24" ry="20.5" />
+        <g className="bny-eyes">
+          <ellipse className="bny-eye" cx="61" cy="71" rx="2.9" ry="3.5" />
+          <ellipse className="bny-eye" cx="79" cy="71" rx="2.9" ry="3.5" />
+          <circle className="bny-eye-shine" cx="62.1" cy="69.6" r="1.1" />
+          <circle className="bny-eye-shine" cx="80.1" cy="69.6" r="1.1" />
+        </g>
+        <ellipse className="bny-cheek" cx="55" cy="77" rx="4.8" ry="3" />
+        <ellipse className="bny-cheek" cx="85" cy="77" rx="4.8" ry="3" />
+        <path className="bny-nose" d="M68.2 75.2Q70 74.2 71.8 75.2Q71 77 70 77Q69 77 68.2 75.2Z" />
+        <path className="bny-mouth" d="M67 78.4Q68.5 80.3 70 78.4Q71.5 80.3 73 78.4" />
+
+        <g className="bny-bow">
+          <path d="M84 52C79 45 73 47 74 52C75 57 80 57 84 52Z" />
+          <path d="M84 52C89 45 95 47 94 52C93 57 88 57 84 52Z" />
+          <circle cx="84" cy="52" r="2.4" />
+        </g>
+      </g>
+
+      <path
+        className="bny-sparkle bny-sparkle-1"
+        d="M110 38l1.2 3.3 3.3 1.2-3.3 1.2-1.2 3.3-1.2-3.3-3.3-1.2 3.3-1.2z"
+      />
+      <path
+        className="bny-sparkle bny-sparkle-2"
+        d="M116 84l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"
+      />
+      <path
+        className="bny-sparkle bny-sparkle-3"
+        d="M17 96l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"
+      />
     </svg>
   );
 }
@@ -119,6 +265,9 @@ function Index() {
   const [celebrating, setCelebrating] = useState(false);
   const [replaying, setReplaying] = useState(false);
   const [breaking, setBreaking] = useState(false);
+  const [guideReady, setGuideReady] = useState(false);
+  const [scrolledAway, setScrolledAway] = useState(false);
+  const openingRef = useRef(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const musicEnabledRef = useRef(true);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -205,8 +354,25 @@ function Index() {
     };
   }, [clearFade, fadeInMusic]);
 
+  useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  }, []);
+
+  // Once the guest scrolls, the scroll-down guidance has done its job. It only starts
+  // listening after the reveal has settled, so our own scroll to the top doesn't count.
+  useEffect(() => {
+    if (!guideReady || scrolledAway) return;
+    const onScroll = () => {
+      if (window.scrollY > 40) setScrolledAway(true);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [guideReady, scrolledAway]);
+
   const openInvitation = () => {
-    if (opened || breaking) return;
+    // the whole envelope, the seal and the pill all open it; only the first tap counts
+    if (openingRef.current) return;
+    openingRef.current = true;
     if (musicEnabledRef.current && audioRef.current?.paused) void fadeInMusic();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scrollToInvitation = () => document.getElementById("invitation")?.scrollIntoView({ block: "start" });
@@ -216,6 +382,7 @@ function Index() {
       setCelebrating(true);
       after(120, scrollToInvitation);
       after(300, () => setCelebrating(false));
+      after(700, () => setGuideReady(true));
       return;
     }
 
@@ -225,6 +392,7 @@ function Index() {
       setOpened(true);
     });
     after(SEAL_PEEL_MS + 2400, scrollToInvitation);
+    after(SEAL_PEEL_MS + 3500, () => setGuideReady(true));
     after(SEAL_PEEL_MS + 6100, () => setCelebrating(false));
   };
 
@@ -240,6 +408,10 @@ function Index() {
     void fadeInMusic();
   };
 
+  const scrollToStory = () => {
+    document.getElementById("her-moment")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const replayInvitation = () => {
     if (replaying) return;
     clearTimers();
@@ -250,6 +422,8 @@ function Index() {
       window.scrollTo({ top: 0, behavior: "auto" });
       setOpened(false);
       setBreaking(false);
+      setGuideReady(false);
+      openingRef.current = false;
     });
     after(reduceMotion ? 120 : 1350, () => setReplaying(false));
   };
@@ -260,7 +434,7 @@ function Index() {
       <section className="opening" aria-label="Invitation cover">
         <div className="opening-ambient opening-ambient-left"><Flourish /></div>
         <div className="opening-ambient opening-ambient-right"><Flourish mirrored /></div>
-        <div className="stationery-stage">
+        <div className="stationery-stage" onClick={openInvitation}>
           <div className="envelope-shadow" />
           <div className="envelope-back">
             <div className="envelope-liner"><Flourish /><Flourish mirrored /></div>
@@ -302,6 +476,14 @@ function Index() {
             <span className="seal-shock seal-shock-far" />
           </div>
           <div className="seal-wrap">
+            <div className="envelope-cue" aria-hidden="true">
+              <span className="envelope-cue-text">
+                <span className="cue-touch">Tap here</span>
+                <span className="cue-pointer">Click here</span>
+              </span>
+              <CueArrow />
+              <span className="envelope-cue-tip" />
+            </div>
             <Button
               className="wax-seal"
               variant="seal"
@@ -338,9 +520,25 @@ function Index() {
           <div className="date-lockup">
             <span>16</span><i /><span>October</span>
           </div>
+          <button
+            type="button"
+            className={`scroll-cue ${guideReady ? "is-ready" : ""} ${scrolledAway ? "is-away" : ""}`}
+            onClick={scrollToStory}
+            aria-label="Scroll down to see the rest of the invitation"
+          >
+            <ScrollBunny />
+            <span className="scroll-cue-text">Scroll down</span>
+            <span className="scroll-cue-track" aria-hidden="true">
+              <i />
+            </span>
+          </button>
         </header>
 
-        <section className="portrait-section section-shell" aria-labelledby="portrait-title">
+        <section
+          id="her-moment"
+          className="portrait-section section-shell"
+          aria-labelledby="portrait-title"
+        >
           <Reveal className="portrait-stage" delay={80}>
             <span className="portrait-folio" />
             <div className="portrait-frame">
@@ -400,6 +598,12 @@ function Index() {
             <p className="eyebrow">A day made for joy</p>
             <h2 id="details-title">Hoorish Fatima’s<br /><em>Special Day</em></h2>
             <div className="details-date"><strong>16</strong><span>October</span></div>
+            <div className="details-venue">
+              <MapPin className="details-venue-pin" aria-hidden="true" />
+              <span className="details-venue-label">Venue</span>
+              <p className="details-venue-name">Al-Hayat Marquee</p>
+              <p className="details-venue-address">Halal Road, Near Khawaja Garden</p>
+            </div>
             <p className="details-message">Come share the smiles, laughter and little moments that make this day so special.</p>
             <div className="details-line" />
           </Reveal>
@@ -422,6 +626,10 @@ function Index() {
             >
               H
             </Button>
+            <span className="closing-hint" aria-hidden="true">
+              <span className="cue-touch">Tap to replay</span>
+              <span className="cue-pointer">Click to replay</span>
+            </span>
           </Reveal>
         </footer>
 

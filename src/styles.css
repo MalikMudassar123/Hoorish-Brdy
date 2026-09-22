@@ -260,6 +260,117 @@ html { scroll-behavior: smooth; }
 .open-label::before, .open-label::after { content: ""; position: absolute; top: 50%; width: .65rem; height: 1px; background: var(--champagne); }
 .open-label::before { left: -.85rem; }.open-label::after { right: -.85rem; }
 
+/* Guidance for guests: the whole envelope opens it, and a hand-drawn note points at the seal */
+.invitation-closed .stationery-stage { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cue-pointer { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cue-touch { display: none; }
+  .cue-pointer { display: inline; }
+}
+.envelope-cue { --cue-ink: color-mix(in oklab, var(--primary) 86%, var(--foreground)); position: absolute; left: 50%; bottom: calc(100% - .55rem); width: 8.6rem; height: 6.7rem; margin-left: .85rem; color: var(--cue-ink); animation: cue-in .9s cubic-bezier(.2,.8,.2,1) 1.1s both; }
+.envelope-cue-text { position: absolute; left: 2.15rem; bottom: 4.45rem; isolation: isolate; font-family: var(--font-display); font-size: 1.52rem; font-style: italic; font-weight: 500; line-height: 1; white-space: nowrap; text-shadow: 0 1px 0 var(--ivory); animation: cue-float 3.2s ease-in-out 2.4s infinite; }
+.envelope-cue-text::before { content: ""; position: absolute; z-index: -1; inset: -.95rem -1.35rem -1.05rem; border-radius: 50%; background: radial-gradient(closest-side, var(--ivory) 38%, color-mix(in oklab, var(--ivory) 78%, transparent) 64%, transparent); }
+.envelope-cue-text::after { content: ""; display: block; width: 84%; height: 1.5px; margin: .36rem 0 0 6%; border-radius: 1px; background: linear-gradient(90deg, transparent, var(--champagne) 22%, color-mix(in oklab, var(--primary) 60%, var(--champagne)) 55%, transparent); }
+.cue-arrow { position: absolute; left: 0; bottom: 0; width: 3.7rem; height: 4.45rem; overflow: visible; animation: cue-nudge 1.9s ease-in-out 2.6s infinite; }
+.cue-arrow path { stroke-linecap: round; stroke-linejoin: round; }
+.cue-arrow-halo path { stroke: var(--ivory); stroke-width: 6.5; opacity: .9; }
+.cue-arrow-ink path { stroke: currentColor; stroke-width: 2.4; }
+.cue-arrow-line { stroke-dasharray: 112; stroke-dashoffset: 0; animation: cue-draw 1s cubic-bezier(.5,0,.3,1) 1.35s both; }
+.cue-arrow-head { animation: cue-head .35s ease 2.25s both; }
+.envelope-cue-tip { position: absolute; left: .5rem; bottom: .55rem; width: 1px; height: 1px; }
+.wax-seal::after { content: ""; position: absolute; inset: -.32rem; border: 2px solid color-mix(in oklab, var(--primary) 60%, transparent); border-radius: 50%; box-shadow: 0 0 0 1px color-mix(in oklab, var(--ivory) 70%, transparent); opacity: 0; pointer-events: none; animation: seal-invite 2.4s ease-out 1.8s infinite; }
+.seal-breaking .envelope-cue, .invitation-open .envelope-cue { animation: cue-out .28s ease forwards; }
+.seal-breaking .wax-seal::after, .invitation-open .wax-seal::after { animation: none; opacity: 0; }
+
+/* The first page: the words sit in the middle, the guide gets its own space at the foot */
+.story-hero { padding-top: clamp(4.25rem, 11svh, 6rem); padding-bottom: clamp(1.25rem, 3.2svh, 2.5rem); }
+.story-hero > .eyebrow { margin-top: auto; }
+.story-hero .date-lockup { margin-bottom: clamp(1.75rem, 4.5svh, 3rem); }
+.invitation-open .story-hero > .eyebrow, .invitation-open .story-hero > h2, .invitation-open .story-hero > .hero-copy, .invitation-open .story-hero > .date-lockup { animation: hero-rise 1.25s cubic-bezier(.2,.8,.2,1) both; }
+.invitation-open .story-hero > .eyebrow { animation-delay: 2.5s; }
+.invitation-open .story-hero > h2 { animation-delay: 2.66s; }
+.invitation-open .story-hero > .hero-copy { animation-delay: 2.86s; }
+.invitation-open .story-hero > .date-lockup { animation-delay: 3.02s; }
+
+.scroll-cue { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-top: auto; padding: .25rem 1.25rem 0; border: 0; background: none; color: var(--primary); cursor: pointer; opacity: 0; visibility: hidden; -webkit-tap-highlight-color: transparent; }
+.scroll-cue:focus-visible { outline: 2px solid color-mix(in oklab, var(--primary) 60%, transparent); outline-offset: 4px; border-radius: 1.25rem; }
+.scroll-cue.is-ready { animation: scroll-cue-in 1s cubic-bezier(.2,.8,.2,1) .1s forwards; }
+.scroll-cue.is-away { pointer-events: none; animation: scroll-cue-out .5s ease forwards; }
+.scroll-cue-text { margin-top: .7rem; padding-left: .24em; font-size: .74rem; font-weight: 700; line-height: 1; letter-spacing: .24em; text-transform: uppercase; }
+.scroll-cue-track { position: relative; width: .8rem; height: 2.5rem; margin-top: .7rem; }
+.scroll-cue-track::before { content: ""; position: absolute; left: 50%; top: 0; bottom: .15rem; width: 1px; background: linear-gradient(to bottom, var(--champagne), color-mix(in oklab, var(--champagne) 15%, transparent)); }
+.scroll-cue-track::after { content: ""; position: absolute; left: 50%; bottom: .1rem; width: .42rem; height: .42rem; margin-left: -.21rem; border-right: 1.5px solid var(--champagne); border-bottom: 1.5px solid var(--champagne); transform: rotate(45deg); }
+.scroll-cue-track i { position: absolute; left: 50%; top: 0; width: .36rem; height: .36rem; margin-left: -.18rem; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 16%, transparent); animation: track-dot 1.9s cubic-bezier(.55,0,.35,1) infinite; }
+
+/* The birthday bunny */
+.scroll-bunny { --bny-line: color-mix(in oklab, var(--primary) 72%, var(--foreground)); width: clamp(6.4rem, 16svh, 11rem); height: auto; overflow: visible; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+.scroll-cue:hover .scroll-bunny { transform: translateY(-.2rem) scale(1.03); }
+.bny-line { stroke: var(--bny-line); stroke-width: 1.6; stroke-linejoin: round; }
+.bny-fill { fill: url(#bny-fur); }
+.bny-fur-hi { stop-color: var(--card); }
+.bny-fur-lo { stop-color: color-mix(in oklab, var(--ivory) 80%, var(--rose-soft)); }
+.bny-inner { fill: color-mix(in oklab, var(--rose-soft) 55%, var(--primary)); opacity: .5; }
+.bny-tutu { fill: url(#bny-tulle); stroke-width: 1.3; }
+.bny-tulle-top { stop-color: color-mix(in oklab, var(--rose-soft) 55%, var(--card)); }
+.bny-tulle-bottom { stop-color: color-mix(in oklab, var(--rose-soft) 78%, var(--primary)); }
+.bny-glint, .bny-sparkle { fill: var(--champagne); }
+.bny-pad { fill: color-mix(in oklab, var(--primary) 32%, var(--rose-soft)); opacity: .75; }
+.bny-eye { fill: var(--foreground); }
+.bny-eye-shine { fill: var(--card); }
+.bny-cheek { fill: url(#bny-blush); }
+.bny-blush-in { stop-color: color-mix(in oklab, var(--primary) 45%, var(--rose-soft)); stop-opacity: .8; }
+.bny-blush-out { stop-color: var(--rose-soft); stop-opacity: 0; }
+.bny-nose { fill: color-mix(in oklab, var(--primary) 70%, var(--rose-soft)); }
+.bny-mouth { stroke: var(--bny-line); stroke-width: 1.3; stroke-linecap: round; }
+.bny-bow path { fill: var(--primary); stroke: color-mix(in oklab, var(--primary) 70%, var(--foreground)); stroke-width: .8; }
+.bny-bow circle { fill: color-mix(in oklab, var(--primary) 78%, var(--foreground)); }
+.bny-string { stroke: var(--champagne); stroke-width: 1.1; stroke-linecap: round; }
+.bny-balloon-body { fill: url(#bny-balloon); stroke: color-mix(in oklab, var(--primary) 78%, var(--foreground)); stroke-width: 1.3; }
+.bny-balloon-hi { stop-color: color-mix(in oklab, var(--primary) 50%, var(--rose-soft)); }
+.bny-balloon-lo { stop-color: var(--primary); }
+.bny-balloon-shine { stroke: var(--card); stroke-width: 1.8; stroke-linecap: round; opacity: .75; }
+.bny-balloon-knot { fill: var(--primary); }
+.bny-ground { fill: var(--foreground); opacity: .1; }
+.bny-float, .bny-ground, .bny-balloon, .bny-point, .bny-ear-flop, .bny-eyes { transform-box: view-box; }
+.bny-float { transform-origin: 70px 140px; animation: bny-float 3s ease-in-out infinite; }
+.bny-ground { transform-origin: 70px 143.5px; animation: bny-ground 3s ease-in-out infinite; }
+.bny-balloon { transform-origin: 37.5px 88px; animation: bny-sway 3.8s ease-in-out infinite; }
+.bny-point { transform-origin: 88px 97px; animation: bny-point 1.6s ease-in-out infinite; }
+.bny-ear-flop { transform-origin: 80px 54px; animation: bny-ear 4.2s ease-in-out infinite; }
+.bny-eyes { transform-origin: 70px 71px; animation: bny-blink 5.5s ease-in-out infinite; }
+.bny-sparkle { transform-box: fill-box; transform-origin: center; animation: bny-twinkle 2.8s ease-in-out infinite; }
+.bny-sparkle-2 { animation-delay: .9s; }
+.bny-sparkle-3 { animation-delay: 1.7s; }
+.bny-hint { stroke: var(--primary); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; animation: bny-hint 1.6s ease-in-out infinite; }
+
+/* large screens with room to spare: give the character real presence */
+@media (min-width: 1024px) and (min-height: 781px) {
+  .story-hero { padding-top: clamp(3.5rem, 8.5svh, 5.5rem); }
+  .story-hero .date-lockup { margin-bottom: clamp(1.5rem, 3.5svh, 2.5rem); }
+  .scroll-bunny { width: clamp(8rem, 19svh, 11rem); }
+  .scroll-cue-track { height: 2rem; }
+}
+
+/* short laptop screens: scale the headline to the height so the guide fits above the fold */
+@media (min-width: 768px) and (max-height: 780px) {
+  .story-hero { padding-top: 4.75rem; }
+  .story-hero.section-shell h2 { font-size: clamp(3.5rem, min(11vw, 16.5svh), 9rem); }
+  .story-hero .date-lockup { margin-bottom: 1.4rem; }
+  .scroll-bunny { width: clamp(6.25rem, 15svh, 8.75rem); }
+  .scroll-cue-text { margin-top: .55rem; }
+  .scroll-cue-track { height: 1.75rem; margin-top: .5rem; }
+}
+
+/* Venue, inside the event details */
+.details-venue { display: flex; flex-direction: column; align-items: center; margin: 2.2rem auto 0; }
+.details-venue-pin { width: 1.2rem; height: 1.2rem; color: var(--primary); stroke-width: 1.6; }
+.details-venue-label { margin-top: .5rem; color: var(--primary); font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.details-venue-name { margin-top: .5rem; color: var(--foreground); font-family: var(--font-display); font-size: clamp(1.55rem, 4.2vw, 2rem); line-height: 1.15; }
+.details-venue-address { margin-top: .4rem; color: var(--muted-foreground); font-size: .95rem; line-height: 1.5; letter-spacing: .02em; }
+
+/* What the closing seal does */
+.closing-hint { display: block; margin-top: .85rem; color: var(--primary); font-size: .7rem; font-weight: 700; letter-spacing: .2em; opacity: .82; text-transform: uppercase; }
+
 /* The break: a charge races along the band, then both halves peel away */
 .seal-breaking .seal-charge { animation: seal-charge 560ms cubic-bezier(.2,.75,.25,1) forwards; }
 .seal-breaking .seal-shock { animation: seal-shock 1s cubic-bezier(.16,.84,.3,1) forwards; }
@@ -409,6 +520,25 @@ html { scroll-behavior: smooth; }
 @keyframes label-dismiss { to { opacity: 0; transform: translateY(.55rem) scale(.93); } }
 @keyframes envelope-unlock { 0%, 100% { box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 17%, transparent), inset 0 0 0 .45rem color-mix(in oklab, var(--card) 22%, transparent); } 35% { box-shadow: 0 28px 68px color-mix(in oklab, var(--foreground) 17%, transparent), inset 0 0 0 .45rem color-mix(in oklab, var(--card) 22%, transparent), 0 0 2.8rem color-mix(in oklab, var(--champagne) 62%, transparent); } }
 @keyframes stage-jolt { 0%, 100% { transform: none; } 14% { transform: translateY(.18rem) scale(.995); } 42% { transform: translateY(-.12rem) scale(1.004); } }
+@keyframes cue-in { from { opacity: 0; transform: translateY(-.4rem); } to { opacity: 1; transform: none; } }
+@keyframes cue-out { to { opacity: 0; transform: translateY(-.3rem); visibility: hidden; } }
+@keyframes cue-draw { from { stroke-dashoffset: 112; } to { stroke-dashoffset: 0; } }
+@keyframes cue-head { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cue-nudge { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-.22rem, .26rem); } }
+@keyframes cue-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-.14rem); } }
+@keyframes seal-invite { 0% { opacity: .75; transform: scale(.96); } 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes scroll-cue-in { from { opacity: 0; visibility: visible; transform: translateY(1rem); } to { opacity: 1; visibility: visible; transform: none; } }
+@keyframes scroll-cue-out { from { opacity: 1; visibility: visible; } to { opacity: 0; visibility: hidden; transform: translateY(.6rem); } }
+@keyframes hero-rise { from { opacity: 0; filter: blur(6px); transform: translateY(1.1rem); } to { opacity: 1; filter: none; transform: none; } }
+@keyframes track-dot { 0% { opacity: 0; transform: translateY(0); } 20%, 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(1.75rem); } }
+@keyframes bny-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3.5px); } }
+@keyframes bny-ground { 0%, 100% { transform: scaleX(1); opacity: .1; } 50% { transform: scaleX(.86); opacity: .07; } }
+@keyframes bny-sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes bny-point { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(7deg) translateY(1.5px); } }
+@keyframes bny-ear { 0%, 70%, 100% { transform: rotate(0deg); } 80% { transform: rotate(7deg); } 90% { transform: rotate(-2deg); } }
+@keyframes bny-blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.12); } }
+@keyframes bny-hint { 0%, 100% { opacity: .25; transform: translateY(-1.5px); } 50% { opacity: 1; transform: translateY(1.5px); } }
+@keyframes bny-twinkle { 0%, 100% { opacity: .25; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.15); } }
 @keyframes music-pulse { 0%,100% { opacity: .38; transform: scale(.96); } 50% { opacity: .8; transform: scale(1.08); } }
 
 @media (min-width: 768px) {
@@ -454,5 +584,7 @@ html { scroll-behavior: smooth; }
   .reveal { opacity: 1; transform: none; }
   .replay-veil { transition: none; }
   .band-sheen, .wax-body, .wax-ring { animation: none; }
+  .envelope-cue-text, .cue-arrow, .cue-arrow-line, .cue-arrow-head, .wax-seal::after, .bny-float, .bny-ground, .bny-balloon, .bny-point, .bny-ear-flop, .bny-eyes, .bny-sparkle, .bny-hint, .scroll-cue-track i { animation: none; }
+  .invitation-open .story-hero > * { animation-delay: 0s; }
   .invitation-open .opening-card { transform: translateY(-36%) scale(1); }
 }
