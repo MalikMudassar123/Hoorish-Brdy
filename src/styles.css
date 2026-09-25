@@ -285,7 +285,7 @@ html { scroll-behavior: smooth; }
 /* The first page: the words sit in the middle, the guide gets its own space at the foot */
 .story-hero { padding-top: clamp(4.25rem, 11svh, 6rem); padding-bottom: clamp(1.25rem, 3.2svh, 2.5rem); }
 .story-hero > .eyebrow { margin-top: auto; }
-.story-hero .date-lockup { margin-bottom: clamp(1.75rem, 4.5svh, 3rem); }
+.story-hero .date-lockup { margin-bottom: clamp(.75rem, 2svh, 1.25rem); }
 .invitation-open .story-hero > .eyebrow, .invitation-open .story-hero > h2, .invitation-open .story-hero > .hero-copy, .invitation-open .story-hero > .date-lockup, .invitation-open .story-hero > .hero-venue-block { animation: hero-rise 1.25s cubic-bezier(.2,.8,.2,1) both; }
 .invitation-open .story-hero > .eyebrow { animation-delay: 2.5s; }
 .invitation-open .story-hero > h2 { animation-delay: 2.66s; }
@@ -417,7 +417,7 @@ html { scroll-behavior: smooth; }
 .hero-copy { max-width: 31rem; margin-top: 1.8rem; color: var(--muted-foreground); font-family: var(--font-display); font-size: 1.05rem; line-height: 1.65; }
 .date-lockup { display: flex; align-items: center; gap: 1rem; margin-top: 2.2rem; color: var(--foreground); font-size: clamp(.86rem, 1.7vw, 1rem); font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
 .date-lockup i { width: 2.5rem; height: 1px; background: var(--champagne); }
-.hero-venue-block { display: flex; flex-direction: column; align-items: center; gap: .5rem; margin-top: 2rem; margin-bottom: 1.5rem; text-align: center; }
+.hero-venue-block { display: flex; flex-direction: column; align-items: center; gap: .5rem; margin-top: 1rem; margin-bottom: 1.5rem; text-align: center; }
 .hero-venue-icon { width: 1.4rem; height: 1.4rem; color: var(--primary); margin-bottom: .25rem; }
 .hero-venue-label { font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--primary); }
 .hero-venue-name { margin: 0; font-family: var(--font-display); font-size: clamp(1.65rem, 3.5vw, 2rem); font-weight: 400; line-height: 1.2; color: var(--foreground); }
