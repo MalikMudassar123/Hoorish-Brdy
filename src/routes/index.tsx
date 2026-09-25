@@ -10,12 +10,12 @@ export const Route = createFileRoute("/")({
       { title: "Hoorish Fatima — Birthday Invitation" },
       {
         name: "description",
-        content: "You are warmly invited to Hoorish Fatima’s first birthday on 16 October.",
+        content: "You are warmly invited to Hoorish Fatima’s first birthday on 16 October 2026.",
       },
       { property: "og:title", content: "Hoorish Fatima — Birthday Invitation" },
       {
         property: "og:description",
-        content: "Hoorish Fatima’s very first birthday — 16 October.",
+        content: "Hoorish Fatima’s very first birthday — 16 October 2026.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -457,7 +457,7 @@ function Index() {
               <h1>Hoorish Fatima</h1>
               <span className="opening-rule" />
               <p className="card-message">is celebrating her very first birthday</p>
-              <p className="card-date"><strong>16</strong><span>October</span></p>
+              <p className="card-date"><strong>16</strong><span>October 2026</span></p>
               <p className="card-note">A beautiful day is waiting to be celebrated.</p>
             </div>
           </article>
@@ -518,7 +518,13 @@ function Index() {
           <h2><span>Hoorish</span> <em>Fatima</em></h2>
           <p className="hero-copy">Her very first birthday is here…<br />and we would love to celebrate it with you.</p>
           <div className="date-lockup">
-            <span>16</span><i /><span>October</span>
+            <span>16</span><i /><span>October 2026</span>
+          </div>
+          <div className="hero-venue-block">
+            <MapPin className="hero-venue-icon" aria-hidden="true" />
+            <span className="hero-venue-label">Venue</span>
+            <p className="hero-venue-name">Al-Hayat Marquee</p>
+            <p className="hero-venue-address">Halal Road, Near Khawaja Garden</p>
           </div>
           <button
             type="button"
@@ -564,8 +570,9 @@ function Index() {
             <div className="date-composition">
               <span className="date-month">October</span>
               <strong>16</strong>
-              <span className="date-occasion">A birthday celebration</span>
+              <span className="date-occasion">2026</span>
             </div>
+            <p className="date-celebration">A birthday celebration</p>
             <p className="date-note">For a day filled with little joys, laughter and beautiful memories.</p>
           </Reveal>
         </section>
@@ -597,7 +604,7 @@ function Index() {
             <span className="chapter-label">V · Let’s celebrate</span>
             <p className="eyebrow">A day made for joy</p>
             <h2 id="details-title">Hoorish Fatima’s<br /><em>Special Day</em></h2>
-            <div className="details-date"><strong>16</strong><span>October</span></div>
+            <div className="details-date"><strong>16</strong><span>October 2026</span></div>
             <div className="details-venue">
               <MapPin className="details-venue-pin" aria-hidden="true" />
               <span className="details-venue-label">Venue</span>

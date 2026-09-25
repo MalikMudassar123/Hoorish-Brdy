@@ -286,11 +286,12 @@ html { scroll-behavior: smooth; }
 .story-hero { padding-top: clamp(4.25rem, 11svh, 6rem); padding-bottom: clamp(1.25rem, 3.2svh, 2.5rem); }
 .story-hero > .eyebrow { margin-top: auto; }
 .story-hero .date-lockup { margin-bottom: clamp(1.75rem, 4.5svh, 3rem); }
-.invitation-open .story-hero > .eyebrow, .invitation-open .story-hero > h2, .invitation-open .story-hero > .hero-copy, .invitation-open .story-hero > .date-lockup { animation: hero-rise 1.25s cubic-bezier(.2,.8,.2,1) both; }
+.invitation-open .story-hero > .eyebrow, .invitation-open .story-hero > h2, .invitation-open .story-hero > .hero-copy, .invitation-open .story-hero > .date-lockup, .invitation-open .story-hero > .hero-venue-block { animation: hero-rise 1.25s cubic-bezier(.2,.8,.2,1) both; }
 .invitation-open .story-hero > .eyebrow { animation-delay: 2.5s; }
 .invitation-open .story-hero > h2 { animation-delay: 2.66s; }
 .invitation-open .story-hero > .hero-copy { animation-delay: 2.86s; }
 .invitation-open .story-hero > .date-lockup { animation-delay: 3.02s; }
+.invitation-open .story-hero > .hero-venue-block { animation-delay: 3.18s; }
 
 .scroll-cue { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-top: auto; padding: .25rem 1.25rem 0; border: 0; background: none; color: var(--primary); cursor: pointer; opacity: 0; visibility: hidden; -webkit-tap-highlight-color: transparent; }
 .scroll-cue:focus-visible { outline: 2px solid color-mix(in oklab, var(--primary) 60%, transparent); outline-offset: 4px; border-radius: 1.25rem; }
@@ -416,6 +417,11 @@ html { scroll-behavior: smooth; }
 .hero-copy { max-width: 31rem; margin-top: 1.8rem; color: var(--muted-foreground); font-family: var(--font-display); font-size: 1.05rem; line-height: 1.65; }
 .date-lockup { display: flex; align-items: center; gap: 1rem; margin-top: 2.2rem; color: var(--foreground); font-size: clamp(.86rem, 1.7vw, 1rem); font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
 .date-lockup i { width: 2.5rem; height: 1px; background: var(--champagne); }
+.hero-venue-block { display: flex; flex-direction: column; align-items: center; gap: .5rem; margin-top: 2rem; margin-bottom: 1.5rem; text-align: center; }
+.hero-venue-icon { width: 1.4rem; height: 1.4rem; color: var(--primary); margin-bottom: .25rem; }
+.hero-venue-label { font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--primary); }
+.hero-venue-name { margin: 0; font-family: var(--font-display); font-size: clamp(1.65rem, 3.5vw, 2rem); font-weight: 400; line-height: 1.2; color: var(--foreground); }
+.hero-venue-address { margin: 0; font-size: clamp(.95rem, 2vw, 1.05rem); line-height: 1.6; color: var(--muted-foreground); }
 .corner { position: absolute; width: min(34vw, 16rem); color: var(--champagne); opacity: .55; }
 .corner .bird { position: absolute; width: 4rem; }
 .corner-top-left { left: -3rem; top: 2rem; transform: rotate(90deg); }
@@ -442,6 +448,7 @@ html { scroll-behavior: smooth; }
 .date-month, .date-occasion { font-size: clamp(.78rem, 1.5vw, .9rem); font-weight: 600; line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; }
 .date-month { margin-bottom: 1.8rem; }
 .date-occasion { margin-top: 2.2rem; }
+.date-celebration { margin-top: .9rem; font-size: clamp(.78rem, 1.5vw, .9rem); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: color-mix(in oklab, var(--primary-foreground) 70%, transparent); }
 .date-note { max-width: 28rem; margin: 2.2rem auto 0; color: color-mix(in oklab, var(--primary-foreground) 80%, transparent); font-family: var(--font-display); font-size: 1.15rem; line-height: 1.6; }
 .petal-field { position: absolute; inset: 0; pointer-events: none; }
 .petal-field i { position: absolute; width: .7rem; height: 1.1rem; border-radius: 70% 0 70% 0; background: color-mix(in oklab, var(--rose-soft) 50%, transparent); animation: petal-drift 6s ease-in-out infinite; }
